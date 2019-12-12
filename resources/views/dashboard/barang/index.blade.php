@@ -37,39 +37,50 @@
                 <h5 class="m-0">Data Barang</h5>
             </div>
             <div class="card-body">              
-                <table id="example2" class="table table-bordered table-hover">
-                <thead>
-                    <tr>
-                        <th width="1%">No</th>
-                        <th>Nama Barang</th>
-                        <th>Jumlah</th>
-                        <th>Harga</th>
-                        <th>#</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @for($i=0;$i<100;$i++)
-                    <tr>
-                        <td>{{$i}}</td>
-                        <td>Internet
-                            Explorer 4.0
-                        </td>
-                        <td>Win 95+</td>
-                        <td> 4</td>
-                        <td>X</td>
-                        </tr>
-                    @endfor
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <th width="1%">No</th>
-                        <th>Nama Barang</th>
-                        <th>Jumlah</th>
-                        <th>Harga</th>
-                        <th>#</th>
-                    </tr>
-                </tfoot>
-                </table>
+                <div class="row">
+                    <div class="col-md-12 mb-2">
+                        <a href="/barang/insert"><button class="btn btn-primary float-right"> <i class="fas fa-plus"></i> Tambah Barang</button></a>
+                    </div>
+                    <div class="col-md-12 table-responsive">
+                        <table id="example2" class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th width="1%">No</th>
+                                    <th>Nama Barang</th>
+                                    <th>Jumlah</th>
+                                    <th>Harga</th>
+                                    <th>#</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @php
+                                    $nomor = 0;
+                                @endphp
+                                @foreach ($barang as $item)
+                                    <tr>
+                                        <td>{{$nomor +=1}}</td>
+                                        <td>{{$item->nama_barang}}</td>
+                                        <td>{{$item->jumlah}}</td>
+                                        <td>{{$item->harga_jual}}</td>
+                                        <td><a href="{{route('barang_update',$item->id)}}"><button class="btn btn-primary btn-xs"><i class="fas fa-edit"></i></button></a></td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th width="1%">No</th>
+                                    <th>Nama Barang</th>
+                                    <th>Jumlah</th>
+                                    <th>Harga</th>
+                                    <th>#</th>
+                                </tr>
+                            </tfoot>
+                            </table>
+                            <div>
+                                {{-- {{$barang->links()}} --}}
+                            </div>
+                    </div>
+                </div>
             </div>
             </div>
         </div>

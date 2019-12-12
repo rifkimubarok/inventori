@@ -1,6 +1,6 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
+    <a href="#" class="brand-link">
       <img src="{{asset('admin/dist/img/AdminLTELogo.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
       <span class="brand-text font-weight-light">Inventori Barang</span>
@@ -38,14 +38,14 @@
               </p>
             </a>
           </li>
-          <li class="nav-item">
+          {{-- <li class="nav-item">
           <a href="{{route('supplier')}}" class="nav-link">
               <i class="nav-icon fas fa-truck-moving"></i>
               <p>
                 Supplier
               </p>
             </a>
-          </li>
+          </li> --}}
           <li class="nav-item has-treeview">
             <a href="" class="nav-link">
                 <i class="nav-icon fas fa-money-bill-alt"></i>
@@ -73,6 +73,25 @@
                     </li>
             </ul>
           </li>
+          <li class="nav-item has-treeview">
+              <a href="" class="nav-link">
+                  <i class="nav-icon fas fa-chart-bar"></i>
+                  <p>
+                    Laporan
+                  </p>
+                  <i class="right fas fa-angle-left"></i>
+              </a>
+              <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                      <a href="{{route('laporan_keluar')}}" class="nav-link">
+                          <i class="nav-icon fas fa-file-alt"></i>
+                          <p>
+                            Laporan Barang Keluar
+                          </p>
+                        </a>
+                      </li>
+              </ul>
+            </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
