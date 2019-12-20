@@ -9,7 +9,7 @@ class BarangController extends Controller
 {
     public function index()
     {
-        $barang = Barang::orderby("jumlah","asc")->get();
+        $barang = Barang::orderby("nama_barang","asc")->get();
         return view("dashboard.barang.index",compact('barang'));
     }
 
@@ -20,9 +20,14 @@ class BarangController extends Controller
 
     public function new_barang(Request $request)
     {
+        $this->validate($request,[
+            'nama_barang'=>"required|min:3",
+            'jumlah'=> "required|numeric|min:1",
+            'satuan' => "required|min:1"
+        ]); 
         $result = Barang::create($request->all());
         if($result){
-            return redirect(route('barang'));
+            return redirect(route('barang'))->with("success","Data barang berhasil ditambahkan.");
         }
     }
 
@@ -36,6 +41,14 @@ class BarangController extends Controller
     {
         $barang = Barang::find($id);
         $barang->update($request->all());
-        return redirect(route('barang'));
+        return redirect(route('barang'))->with("success","Data barang berhasil diupdate.");
+    }
+
+    
+    public function deleting($id)
+    {
+        $barang = Barang::find($id);
+        $barang->delete();
+        return redirect(route('barang'))->with("success","Data barang berhasil dihapus.");
     }
 }

@@ -55,16 +55,6 @@
                                     <label for="">Satuan</label>
                                     <input class="form-control" value="{{$barang->satuan}}" type="text" name="satuan" id="satuan">
                                 </div>
-                                
-                                <div class="form-group col-md-6">
-                                    <label for="">Harga Beli</label>
-                                    <input class="form-control" value="{{$barang->harga_beli}}" type="text" name="harga_beli" id="harga_beli">
-                                </div>
-                                
-                                <div class="form-group col-md-6">
-                                    <label for="">Harga Jual</label>
-                                    <input class="form-control" value="{{$barang->harga_jual}}" type="text" name="harga_jual" id="harga_jual">
-                                </div>
                                 <div class="form-group col-md-12">
                                     <button class="btn btn-primary">Simpan</button>
                                 </div>

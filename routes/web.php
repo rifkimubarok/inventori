@@ -19,7 +19,8 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::group(['middleware'=>'auth'],function(){
-    Route::get("/dashboard","DashboardController@index")->name("dashboard");
+    
+    Route::get("/logout","LoginController@logout")->name("logout");
 
     // CRUD Barang
     Route::get("/barang","BarangController@index")->name("barang");
@@ -31,9 +32,7 @@ Route::group(['middleware'=>'auth'],function(){
     Route::post("/barang/inserting","BarangController@new_barang")->name("barang_new");
     Route::get("/barang/update/{barang_id}","BarangController@update")->name("barang_update");
     Route::post("/barang/{id}/updating","BarangController@updating")->name("barang_updated");
-
-    // CRUD Supplier
-    Route::get("/supplier","SupplierController@index")->name("supplier");
+    Route::post("/barang/{id}/delete","BarangController@deleting")->name("barang_delete");
 
     // Transaksi Masuk
     Route::get("/transaksi/masuk","TransaksiMasukController@index")->name("tr_masuk");
@@ -43,6 +42,7 @@ Route::group(['middleware'=>'auth'],function(){
     Route::get("transaksi/masuk/save_tr/{transaksi_id}","TransaksiMasukController@save_transaction")->name("tr_masuk_save");
     Route::get("transaksi/masuk/show/{transaksi_id}","TransaksiMasukController@get_row_transaksi")->name("show_tr_masuk");
     Route::get("transaksi/masuk/cancel/{transaksi_id}","TransaksiMasukController@cancel_transaction")->name("cancel_tr_masuk");
+    Route::post("transaksi/masuk/delete/{transaksi_id}","TransaksiMasukController@delete_item")->name("delete_tr_masuk");
 
     // Transaksi Keluar
     Route::get("/transaksi/keluar","TransaksiKeluarController@index")->name("tr_keluar");
@@ -52,6 +52,9 @@ Route::group(['middleware'=>'auth'],function(){
     Route::get("transaksi/keluar/save_tr/{transaksi_id}","TransaksiKeluarController@save_transaction")->name("tr_keluar_save");
     Route::get("transaksi/keluar/show/{transaksi_id}","TransaksiKeluarController@get_row_transaksi")->name("show_tr_keluar");
     Route::get("transaksi/keluar/cancel/{transaksi_id}","TransaksiKeluarController@cancel_transaction")->name("cancel_tr_keluar");
+    Route::get("transaksi/keluar/cancel/{transaksi_id}","TransaksiKeluarController@cancel_transaction")->name("cancel_tr_keluar");
+    Route::post("transaksi/keluar/delete/{transaksi_id}","TransaksiKeluarController@delete_item")->name("delete_tr_keluar");
+    Route::post("transaksi/keluar/return/","TransaksiKeluarController@return_item")->name("return_tr_keluar");
 
     // Laporan
     Route::get("/Laporan/masuk","LaporanController@masuk")->name("laporan_masuk");

@@ -3,7 +3,12 @@
 @section('title')
     Transaksi Barang Keluar
 @endsection
-
+@php
+    $data_transaksi;
+    if(isset($output)){
+        $data_transaksi = $output->data_transaksi;
+    }
+@endphp
 @section('css')
 <link rel="stylesheet" href="{{asset('admin/plugins/datatables-bs4/css/dataTables.bootstrap4.css')}}">
 <link rel="stylesheet" href="{{asset('admin/plugins/select2/css/select2.min.css')}}">
@@ -53,11 +58,6 @@
                                 <td>:</td>
                                 <td id="total_barang">{{$data_transaksi->total_barang}}</td>
                             </tr>
-                            <tr>
-                                <td>Total Harga</td>
-                                <td>:</td>
-                                <td id="total_harga">{{number_format($data_transaksi->total_harga,0)}}</td>
-                            </tr>
                         </table>
                     </div>                    
                     <div class="col-md-12">
@@ -79,6 +79,10 @@
                                             <div class="col-md-3">
                                                 <label for="">Barang</label>
                                                 <select name="barang" id="barang" class="form-control select2">
+                                                        <option value="">Pilih Barang</option>
+                                                    @foreach ($output->barang as $item)
+                                                        <option value="{{$item->id}}">{{$item->nama_barang}}</option>
+                                                    @endforeach
                                                 </select>
                                                 {{csrf_field()}}
                                             </div>
@@ -120,7 +124,7 @@
 // $('table').DataTable();
 $(document).ready(function(){
     load_data();
-    load_barang();
+    // load_barang();
     $('#barang').select2({
         theme:"bootstrap4"
     });
@@ -139,6 +143,12 @@ $(document).ready(function(){
     })
     $('.btn-cancel').click(function(){
         window.location.href = "{{route('cancel_tr_keluar',$data_transaksi->id)}}";
+    })
+
+    $(document).on("click",".btn-delete-detail",function(e){
+        e.preventDefault();
+        delete_detail_barang($(this).attr("data-value"));
+        return false;
     })
 })
 
@@ -160,7 +170,6 @@ function load_transaksi(){
         dataType:"json",
         success:function(result){
             $('#total_barang').text(result.total_barang);
-            $('#total_harga').text(result.total_harga);
         }
     })
 }
@@ -223,6 +232,24 @@ function add_new_detail(){
 
 function save_transaction(){
     document.location.href = "{{route('tr_keluar_save',$data_transaksi->id)}}";
+}
+
+function delete_detail_barang(id){
+    $.ajax({
+        url:"{{route('delete_tr_keluar',$data_transaksi->id)}}",
+        type:"post",
+        dataType:"json",
+        data:{
+            "_token": "{{ csrf_token() }}",
+            "id":id
+        },
+        success:function(result){
+            if(result.status == true){
+                load_data()
+                load_transaksi()
+            }
+        }
+    })
 }
 </script>
 @endsection

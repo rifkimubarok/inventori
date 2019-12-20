@@ -31,14 +31,20 @@ class TransaksiMasukController extends Controller
         return view("dashboard.transaksi.masuk_new",compact("data_transaksi"));
     }
 
-    public function detail_transaksi($transaksi_id)
+    public function detail_transaksi($transaksi_id,Request $request)
     {
-        $detail_transaksi = DB::table("detail_barang_masuk as a")
-                                ->join("barang as b","b.id","=","a.barang_id")
-                                ->select("a.*","b.nama_barang")->orderby("created_at","desc")
-                                ->where(array("a.transaksi_id"=>$transaksi_id))
-                                ->get();
-        return view("dashboard.transaksi.masuk_detail",compact("detail_transaksi"));
+        $param = $request->all();
+        // $detail_transaksi = DB::table("detail_barang_masuk as a")
+        //                         ->join("barang as b","b.id","=","a.barang_id")
+        //                         ->select("a.*","b.nama_barang")->orderby("created_at","desc")
+        //                         ->where(array("a.transaksi_id"=>$transaksi_id))
+        //                         ->get();
+        $detail_transaksi = Barang_masuk_detail::where(array("transaksi_id"=>$transaksi_id))->get();
+        $output = new \stdClass;
+        $output->detail_transaksi = $detail_transaksi;
+        $output->param = $param;
+        // return json_encode([$output,$transaksi_id]);
+        return view("dashboard.transaksi.masuk_detail",compact("output"));
     }
 
     public function get_row_transaksi($transaksi_id)
@@ -77,6 +83,16 @@ class TransaksiMasukController extends Controller
         $detail->delete();
         if($barang->delete()){
             return redirect(route("tr_masuk"));
+        }
+    }
+
+    public function delete_item($transaksi_id,Request $request)
+    {
+        $param = $request->all();
+        $barang_detail = Barang_masuk_detail::where(array("transaksi_id"=>$transaksi_id,"id"=>$param['id']));
+
+        if($barang_detail->delete()){
+            return json_encode(["status"=>true]);
         }
     }
 

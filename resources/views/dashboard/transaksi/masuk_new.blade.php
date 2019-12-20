@@ -85,10 +85,6 @@
                                             <label for="">Jumlah</label>
                                             <input type="number" name="jml" id="jml" class="form-control" min="1">
                                         </div>
-                                        <div class="col-md-3">
-                                            <label for="">Harga Beli</label>
-                                            <input type="number" name="harga_beli" id="harga_beli" class="form-control" min="1">
-                                        </div>
                                         <div class="col-md-3 d-flex flex-column">
                                             <button type="button" class="btn btn-primary col-md-6 mt-auto" id="add_new_data"> <i class="fas fa-plus"></i> Tambah</button>
                                         </div>
@@ -141,6 +137,10 @@ $(document).ready(function(){
     $('.btn-cancel').click(function(){
         window.location.href = "{{route('cancel_tr_masuk',$data_transaksi->id)}}";
     })
+
+    $(document).on('click',".btn-delete-detail",function(){
+        delete_detail_barang($(this).attr("data-value"))
+    });
 })
 
 function load_data(){
@@ -219,6 +219,24 @@ function add_new_detail(){
 
 function save_transaction(){
     document.location.href = "{{route('tr_masuk_save',$data_transaksi->id)}}";
+}
+
+function delete_detail_barang(id){
+    $.ajax({
+        url:"{{route('delete_tr_masuk',$data_transaksi->id)}}",
+        type:"post",
+        dataType:"json",
+        data:{
+            "_token": "{{ csrf_token() }}",
+            "id":id
+        },
+        success:function(result){
+            if(result.status == true){
+                load_data()
+                load_transaksi()
+            }
+        }
+    })
 }
 </script>
 @endsection

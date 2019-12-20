@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.4
+-- version 4.9.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 12 Des 2019 pada 13.19
--- Versi server: 10.1.37-MariaDB
--- Versi PHP: 7.3.1
+-- Generation Time: Dec 19, 2019 at 05:55 AM
+-- Server version: 8.0.18
+-- PHP Version: 7.3.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -25,34 +25,34 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `barang`
+-- Table structure for table `barang`
 --
 
 CREATE TABLE `barang` (
   `id` int(11) NOT NULL,
-  `nama_barang` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nama_barang` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `jumlah` int(11) NOT NULL DEFAULT '0',
-  `satuan` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `harga_beli` int(11) DEFAULT NULL,
-  `harga_jual` int(11) DEFAULT NULL,
+  `satuan` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `barang`
+-- Dumping data for table `barang`
 --
 
-INSERT INTO `barang` (`id`, `nama_barang`, `jumlah`, `satuan`, `harga_beli`, `harga_jual`, `created_at`, `updated_at`) VALUES
-(1, 'Kursi Kantor Hidrolik', 0, 'pcs', NULL, 390000, '2019-12-08 22:36:32', '2019-12-12 00:39:31'),
-(2, 'Meja Kerja', 0, 'pcs', NULL, 350000, '2019-12-08 22:36:32', '2019-12-12 00:39:56'),
-(3, 'Sofa ERGOSIT Grande 1 Seater', 0, 'pcs', NULL, 4800000, '2019-12-08 22:36:32', '2019-12-11 17:29:55'),
-(5, 'Lemari Pakaian', 0, 'pcs', 870000, 999000, '2019-12-11 15:36:01', '2019-12-11 17:31:49');
+INSERT INTO `barang` (`id`, `nama_barang`, `jumlah`, `satuan`, `created_at`) VALUES
+(1, 'Kursi Kantor Hidrolik', 1, 'pcs', '2019-12-08 22:36:32'),
+(2, 'Meja Kerja', 0, 'pcs', '2019-12-08 22:36:32'),
+(3, 'Sofa ERGOSIT Grande 1 Seater', 0, 'pcs', '2019-12-08 22:36:32'),
+(5, 'Lemari Pakaian', 0, 'pcs', '2019-12-11 15:36:01'),
+(6, 'Kursi Cheetos', 1, 'curse', '2019-12-18 19:16:52'),
+(7, 'Rak Server', 1, 'rak', '2019-12-18 19:21:23');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `detail_barang_keluar`
+-- Table structure for table `detail_barang_keluar`
 --
 
 CREATE TABLE `detail_barang_keluar` (
@@ -60,57 +60,58 @@ CREATE TABLE `detail_barang_keluar` (
   `transaksi_id` int(11) NOT NULL,
   `barang_id` int(11) NOT NULL,
   `jml` int(11) NOT NULL,
-  `harga_jual` double(11,0) NOT NULL,
-  `total_harga` bigint(20) NOT NULL,
+  `isReturn` tinyint(1) NOT NULL DEFAULT '0',
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `detail_barang_keluar`
+-- Dumping data for table `detail_barang_keluar`
 --
 
-INSERT INTO `detail_barang_keluar` (`id`, `transaksi_id`, `barang_id`, `jml`, `harga_jual`, `total_harga`, `created_at`, `updated_at`) VALUES
-(11, 7, 2, 2, 32000, 64000, '2019-12-11 17:14:23', '2019-12-11 17:14:23'),
-(12, 7, 4, 1, 245000, 245000, '2019-12-11 17:14:31', '2019-12-11 17:14:31'),
-(13, 7, 5, 2, 3000000, 6000000, '2019-12-11 17:14:39', '2019-12-11 17:14:39'),
-(14, 7, 1, 3, 12000, 36000, '2019-12-11 17:14:51', '2019-12-11 17:14:51'),
-(15, 8, 5, 1, 3000000, 3000000, '2019-12-11 17:25:24', '2019-12-11 17:25:24'),
-(16, 8, 5, 1, 3000000, 3000000, '2019-12-11 17:25:26', '2019-12-11 17:25:26'),
-(19, 11, 1, 1, 390000, 390000, '2019-12-11 17:39:31', '2019-12-11 17:39:31'),
-(20, 11, 2, 1, 350000, 350000, '2019-12-11 17:39:56', '2019-12-11 17:39:56');
+INSERT INTO `detail_barang_keluar` (`id`, `transaksi_id`, `barang_id`, `jml`, `isReturn`, `created_at`, `updated_at`) VALUES
+(11, 7, 2, 2, 0, '2019-12-11 17:14:23', '2019-12-11 17:14:23'),
+(12, 7, 4, 1, 0, '2019-12-11 17:14:31', '2019-12-11 17:14:31'),
+(13, 7, 5, 2, 0, '2019-12-11 17:14:39', '2019-12-11 17:14:39'),
+(14, 7, 1, 3, 0, '2019-12-11 17:14:51', '2019-12-11 17:14:51'),
+(15, 8, 5, 1, 0, '2019-12-11 17:25:24', '2019-12-11 17:25:24'),
+(16, 8, 5, 1, 0, '2019-12-11 17:25:26', '2019-12-11 17:25:26'),
+(19, 11, 1, 1, 1, '2019-12-11 17:39:31', '2019-12-18 22:06:17'),
+(20, 11, 2, 1, 1, '2019-12-11 17:39:56', '2019-12-18 22:06:19'),
+(25, 16, 7, 1, 1, '2019-12-18 20:05:23', '2019-12-18 22:06:05'),
+(27, 20, 2, 1, 1, '2019-12-18 22:07:14', '2019-12-18 22:08:33'),
+(28, 21, 2, 1, 0, '2019-12-18 22:08:47', '2019-12-18 22:08:47');
 
 --
--- Trigger `detail_barang_keluar`
+-- Triggers `detail_barang_keluar`
 --
 DELIMITER $$
 CREATE TRIGGER `after_add_total_harga_tr` AFTER INSERT ON `detail_barang_keluar` FOR EACH ROW BEGIN
-update transaksi_barang_keluar set total_barang = total_barang + NEW.jml , total_harga = total_harga + NEW.total_harga where id = NEW.transaksi_id;
+update transaksi_barang_keluar set total_barang = total_barang + NEW.jml where id = NEW.transaksi_id;
 update barang set jumlah = jumlah - NEW.jml where barang.id = NEW.barang_id ;
 END
 $$
 DELIMITER ;
 DELIMITER $$
-CREATE TRIGGER `before_save_add_harga_jual` BEFORE INSERT ON `detail_barang_keluar` FOR EACH ROW BEGIN
-
-DECLARE harga int;
-SELECT harga_jual INTO @harga from barang where barang.id = NEW.barang_id;
-
-SET NEW.harga_jual = @harga;
-SET NEW.total_harga = @harga * NEW.jml;
-
+CREATE TRIGGER `after_pengembalian` AFTER UPDATE ON `detail_barang_keluar` FOR EACH ROW BEGIN
+	IF (NEW.isReturn = 1) THEN
+	UPDATE barang SET barang.jumlah = barang.jumlah + NEW.jml WHERE id = NEW.barang_id;
+    END IF;
 END
 $$
 DELIMITER ;
 DELIMITER $$
-CREATE TRIGGER `delete_tr` AFTER DELETE ON `detail_barang_keluar` FOR EACH ROW update barang set jumlah = jumlah + OLD.jml where barang.id = OLD.barang_id
+CREATE TRIGGER `delete_tr` AFTER DELETE ON `detail_barang_keluar` FOR EACH ROW BEGIN
+update transaksi_barang_keluar set total_barang = total_barang - OLD.jml where id = OLD.transaksi_id;
+update barang set jumlah = jumlah + OLD.jml where barang.id = OLD.barang_id;
+END
 $$
 DELIMITER ;
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `detail_barang_masuk`
+-- Table structure for table `detail_barang_masuk`
 --
 
 CREATE TABLE `detail_barang_masuk` (
@@ -118,32 +119,25 @@ CREATE TABLE `detail_barang_masuk` (
   `transaksi_id` int(11) NOT NULL,
   `barang_id` int(11) NOT NULL,
   `jml` int(11) NOT NULL,
-  `harga_beli` double(11,0) NOT NULL,
-  `total_harga` bigint(20) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `detail_barang_masuk`
+-- Dumping data for table `detail_barang_masuk`
 --
 
-INSERT INTO `detail_barang_masuk` (`id`, `transaksi_id`, `barang_id`, `jml`, `harga_beli`, `total_harga`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 1, 999000, 999000, '2019-12-11 17:38:21', '2019-12-11 17:38:21'),
-(2, 1, 2, 1, 240000, 240000, '2019-12-11 17:38:38', '2019-12-11 17:38:38');
+INSERT INTO `detail_barang_masuk` (`id`, `transaksi_id`, `barang_id`, `jml`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, 1, '2019-12-11 17:38:21', '2019-12-11 17:38:21'),
+(2, 1, 2, 1, '2019-12-11 17:38:38', '2019-12-11 17:38:38');
 
 --
--- Trigger `detail_barang_masuk`
+-- Triggers `detail_barang_masuk`
 --
 DELIMITER $$
 CREATE TRIGGER `add_total_barang_harga` AFTER INSERT ON `detail_barang_masuk` FOR EACH ROW BEGIN
-update transaksi_barang_masuk set total_barang = total_barang + NEW.jml , total_harga = total_harga + NEW.total_harga where id = NEW.transaksi_id;
 update barang set jumlah = jumlah + NEW.jml where barang.id = NEW.barang_id ;
 END
-$$
-DELIMITER ;
-DELIMITER $$
-CREATE TRIGGER `add_total_harga` BEFORE INSERT ON `detail_barang_masuk` FOR EACH ROW SET NEW.total_harga = NEW.jml * NEW.harga_beli
 $$
 DELIMITER ;
 DELIMITER $$
@@ -154,32 +148,32 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `failed_jobs`
+-- Table structure for table `failed_jobs`
 --
 
 CREATE TABLE `failed_jobs` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `connection` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `connection` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `queue` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payload` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `exception` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `failed_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `migrations`
+-- Table structure for table `migrations`
 --
 
 CREATE TABLE `migrations` (
   `id` int(10) UNSIGNED NOT NULL,
-  `migration` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `migration` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `migrations`
+-- Dumping data for table `migrations`
 --
 
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
@@ -190,24 +184,24 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `password_resets`
+-- Table structure for table `password_resets`
 --
 
 CREATE TABLE `password_resets` (
-  `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `pemasukan_barang`
+-- Table structure for table `pemasukan_barang`
 --
 
 CREATE TABLE `pemasukan_barang` (
   `id` int(255) NOT NULL,
-  `no_pemasukan` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `no_pemasukan` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `id_barang` int(11) NOT NULL,
   `jumlah` int(11) NOT NULL,
   `tgl_masuk` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
@@ -216,16 +210,16 @@ CREATE TABLE `pemasukan_barang` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `pemasukan_barang`
+-- Dumping data for table `pemasukan_barang`
 --
 
-INSERT INTO `pemasukan_barang` (`id`, `no_pemasukan`, `id_barang`, `jumlah`, `tgl_masuk`, `created_at`, `updated_at`) VALUES
-(1, 'PEM201909241212', 1, 10, '2019-09-25 20:33:11', '2019-12-08 22:37:38', '2019-12-08 22:37:38'),
-(3, 'PEM201909250002', 2, 15, '2019-09-25 20:51:50', '2019-12-08 22:37:38', '2019-12-08 22:37:38'),
-(4, 'PEM201909250003', 2, 5, '2019-09-25 20:53:52', '2019-12-08 22:37:38', '2019-12-08 22:37:38');
+INSERT INTO `pemasukan_barang` (`id`, `no_pemasukan`, `id_barang`, `jumlah`, `tgl_masuk`, `created_at`) VALUES
+(1, 'PEM201909241212', 1, 10, '2019-09-25 20:33:11', '2019-12-08 22:37:38'),
+(3, 'PEM201909250002', 2, 15, '2019-09-25 20:51:50', '2019-12-08 22:37:38'),
+(4, 'PEM201909250003', 2, 5, '2019-09-25 20:53:52', '2019-12-08 22:37:38');
 
 --
--- Trigger `pemasukan_barang`
+-- Triggers `pemasukan_barang`
 --
 DELIMITER $$
 CREATE TRIGGER `AFTER_INSERT_PEMASUKAN` AFTER INSERT ON `pemasukan_barang` FOR EACH ROW update barang set jumlah = jumlah+NEW.jumlah where id_barang = NEW.id_barang
@@ -260,13 +254,13 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `pengeluaran_barang`
+-- Table structure for table `pengeluaran_barang`
 --
 
 CREATE TABLE `pengeluaran_barang` (
   `id` int(255) NOT NULL,
-  `no_pengeluaran` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `id_barang` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `no_pengeluaran` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id_barang` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `jumlah` int(11) NOT NULL,
   `tgl_pengeluaran` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -274,15 +268,15 @@ CREATE TABLE `pengeluaran_barang` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `pengeluaran_barang`
+-- Dumping data for table `pengeluaran_barang`
 --
 
-INSERT INTO `pengeluaran_barang` (`id`, `no_pengeluaran`, `id_barang`, `jumlah`, `tgl_pengeluaran`, `created_at`, `updated_at`) VALUES
-(1, 'PEL201909250001', '1', 2, '2019-09-25 21:51:11', '2019-12-08 22:38:18', '2019-12-08 22:38:18'),
-(2, 'PEL201909250002', '2', 2, '2019-09-25 21:53:52', '2019-12-08 22:38:18', '2019-12-08 22:38:18');
+INSERT INTO `pengeluaran_barang` (`id`, `no_pengeluaran`, `id_barang`, `jumlah`, `tgl_pengeluaran`, `created_at`) VALUES
+(1, 'PEL201909250001', '1', 2, '2019-09-25 21:51:11', '2019-12-08 22:38:18'),
+(2, 'PEL201909250002', '2', 2, '2019-09-25 21:53:52', '2019-12-08 22:38:18');
 
 --
--- Trigger `pengeluaran_barang`
+-- Triggers `pengeluaran_barang`
 --
 DELIMITER $$
 CREATE TRIGGER `AFTER_INSERT_PENGELUARAN` AFTER INSERT ON `pengeluaran_barang` FOR EACH ROW update barang set jumlah = jumlah-NEW.jumlah where id_barang = NEW.id_barang
@@ -317,14 +311,14 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `supplier`
+-- Table structure for table `supplier`
 --
 
 CREATE TABLE `supplier` (
   `id` int(11) NOT NULL,
-  `nama` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `alamat` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `no_hp` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `nama` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `alamat` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `no_hp` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -332,7 +326,7 @@ CREATE TABLE `supplier` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `transaksi_barang_keluar`
+-- Table structure for table `transaksi_barang_keluar`
 --
 
 CREATE TABLE `transaksi_barang_keluar` (
@@ -347,16 +341,21 @@ CREATE TABLE `transaksi_barang_keluar` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `transaksi_barang_keluar`
+-- Dumping data for table `transaksi_barang_keluar`
 --
 
-INSERT INTO `transaksi_barang_keluar` (`id`, `tgl_transaksi`, `total_barang`, `total_harga`, `user_id`, `status_transaksi`, `created_at`, `updated_at`) VALUES
-(11, '2019-12-12 00:39:15', 2, 740000, 1, 0, '2019-12-12 00:40:01', '2019-12-11 17:40:01');
+INSERT INTO `transaksi_barang_keluar` (`id`, `tgl_transaksi`, `total_barang`, `total_harga`, `user_id`, `status_transaksi`) VALUES
+(11, '2019-12-12 00:39:15', 2, 740000, 1, 0),
+(13, '2019-12-19 02:34:06', 1, 0, 1, 0),
+(16, '2019-12-19 03:04:54', 1, 0, 1, 0),
+(20, '2019-12-19 05:06:28', 1, 0, 1, 2),
+(21, '2019-12-19 05:08:40', 1, 0, 1, 2),
+(22, '2019-12-19 05:11:00', 0, 0, 1, 1);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `transaksi_barang_masuk`
+-- Table structure for table `transaksi_barang_masuk`
 --
 
 CREATE TABLE `transaksi_barang_masuk` (
@@ -371,31 +370,32 @@ CREATE TABLE `transaksi_barang_masuk` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `transaksi_barang_masuk`
+-- Dumping data for table `transaksi_barang_masuk`
 --
 
-INSERT INTO `transaksi_barang_masuk` (`id`, `tgl_transaksi`, `total_barang`, `total_harga`, `user_id`, `status_transaksi`, `created_at`, `updated_at`) VALUES
-(1, '2019-12-12 00:37:54', 2, 1239000, 1, 0, '2019-12-12 00:38:41', '2019-12-11 17:38:41');
+INSERT INTO `transaksi_barang_masuk` (`id`, `tgl_transaksi`, `total_barang`, `total_harga`, `user_id`, `status_transaksi`) VALUES
+(1, '2019-12-12 00:37:54', 2, 1239000, 1, 0),
+(2, '2019-12-19 03:01:12', 0, 0, 1, 1);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `users`
+-- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
-  `password` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `password` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `remember_token` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `users`
+-- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
@@ -406,145 +406,145 @@ INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `re
 --
 
 --
--- Indeks untuk tabel `barang`
+-- Indexes for table `barang`
 --
 ALTER TABLE `barang`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `detail_barang_keluar`
+-- Indexes for table `detail_barang_keluar`
 --
 ALTER TABLE `detail_barang_keluar`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `detail_barang_masuk`
+-- Indexes for table `detail_barang_masuk`
 --
 ALTER TABLE `detail_barang_masuk`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `failed_jobs`
+-- Indexes for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `migrations`
+-- Indexes for table `migrations`
 --
 ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `password_resets`
+-- Indexes for table `password_resets`
 --
 ALTER TABLE `password_resets`
   ADD KEY `password_resets_email_index` (`email`);
 
 --
--- Indeks untuk tabel `pemasukan_barang`
+-- Indexes for table `pemasukan_barang`
 --
 ALTER TABLE `pemasukan_barang`
   ADD PRIMARY KEY (`id`),
   ADD KEY `fkBarang` (`id_barang`);
 
 --
--- Indeks untuk tabel `pengeluaran_barang`
+-- Indexes for table `pengeluaran_barang`
 --
 ALTER TABLE `pengeluaran_barang`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `supplier`
+-- Indexes for table `supplier`
 --
 ALTER TABLE `supplier`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `transaksi_barang_keluar`
+-- Indexes for table `transaksi_barang_keluar`
 --
 ALTER TABLE `transaksi_barang_keluar`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `transaksi_barang_masuk`
+-- Indexes for table `transaksi_barang_masuk`
 --
 ALTER TABLE `transaksi_barang_masuk`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `users`
+-- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `users_email_unique` (`email`);
 
 --
--- AUTO_INCREMENT untuk tabel yang dibuang
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT untuk tabel `barang`
+-- AUTO_INCREMENT for table `barang`
 --
 ALTER TABLE `barang`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT untuk tabel `detail_barang_keluar`
+-- AUTO_INCREMENT for table `detail_barang_keluar`
 --
 ALTER TABLE `detail_barang_keluar`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
--- AUTO_INCREMENT untuk tabel `detail_barang_masuk`
+-- AUTO_INCREMENT for table `detail_barang_masuk`
 --
 ALTER TABLE `detail_barang_masuk`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT untuk tabel `failed_jobs`
+-- AUTO_INCREMENT for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `migrations`
+-- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT untuk tabel `pemasukan_barang`
+-- AUTO_INCREMENT for table `pemasukan_barang`
 --
 ALTER TABLE `pemasukan_barang`
   MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT untuk tabel `pengeluaran_barang`
+-- AUTO_INCREMENT for table `pengeluaran_barang`
 --
 ALTER TABLE `pengeluaran_barang`
   MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT untuk tabel `supplier`
+-- AUTO_INCREMENT for table `supplier`
 --
 ALTER TABLE `supplier`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `transaksi_barang_keluar`
+-- AUTO_INCREMENT for table `transaksi_barang_keluar`
 --
 ALTER TABLE `transaksi_barang_keluar`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
--- AUTO_INCREMENT untuk tabel `transaksi_barang_masuk`
+-- AUTO_INCREMENT for table `transaksi_barang_masuk`
 --
 ALTER TABLE `transaksi_barang_masuk`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT untuk tabel `users`
+-- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;

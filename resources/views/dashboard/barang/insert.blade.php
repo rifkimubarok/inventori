@@ -43,27 +43,32 @@
                                     {{csrf_field()}}
                                 <div class="form-group col-md-6">
                                     <label for="">Nama Barang</label>
-                                    <input class="form-control" type="text" name="nama_barang" id="nama_barang">
+                                    <input class="form-control @error('nama_barang') is-invalid @enderror" type="text" value="{{ old('nama_barang') }}" name="nama_barang" id="nama_barang">
+                                    @error('nama_barang')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                                 
                                 <div class="form-group col-md-3">
                                     <label for="">Jumlah</label>
-                                    <input class="form-control" type="number" name="jumlah" id="jumlah">
+                                    <input class="form-control @error('jumlah') is-invalid @enderror" type="number" value="{{ old('jumlah') }}" name="jumlah" id="jumlah">
+                                    @error('jumlah')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                                 
                                 <div class="form-group col-md-3">
                                     <label for="">Satuan</label>
-                                    <input class="form-control" type="text" name="satuan" id="satuan">
-                                </div>
-                                
-                                <div class="form-group col-md-6">
-                                    <label for="">Harga Beli</label>
-                                    <input class="form-control" type="text" name="harga_beli" id="harga_beli">
-                                </div>
-                                
-                                <div class="form-group col-md-6">
-                                    <label for="">Harga Jual</label>
-                                    <input class="form-control" type="text" name="harga_jual" id="harga_jual">
+                                    <input class="form-control @error('satuan') is-invalid @enderror" type="text" name="satuan" id="satuan" value="{{ old('satuan') }}">
+                                    @error('satuan')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                                 <div class="form-group col-md-12">
                                     <button class="btn btn-primary">Simpan</button>

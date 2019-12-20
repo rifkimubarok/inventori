@@ -39,6 +39,12 @@
             <div class="card-body">              
                 <div class="row">
                     <div class="col-md-12 mb-2">
+                        @if(session('success'))
+                            <div class="alert alert-success  alert-dismissible">
+                                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                {{session('success')}}
+                            </div>
+                        @endif
                         <a href="/barang/insert"><button class="btn btn-primary float-right"> <i class="fas fa-plus"></i> Tambah Barang</button></a>
                     </div>
                     <div class="col-md-12 table-responsive">
@@ -61,7 +67,7 @@
                                         <td>{{$nomor +=1}}</td>
                                         <td>{{$item->nama_barang}}</td>
                                         <td>{{$item->jumlah}}</td>
-                                        <td>{{$item->harga_jual}}</td>
+                                        <td>{{$item->satuan}}</td>
                                         <td><a href="{{route('barang_update',$item->id)}}"><button class="btn btn-primary btn-xs"><i class="fas fa-edit"></i></button></a></td>
                                     </tr>
                                 @endforeach
@@ -71,7 +77,7 @@
                                     <th width="1%">No</th>
                                     <th>Nama Barang</th>
                                     <th>Jumlah</th>
-                                    <th>Harga</th>
+                                    <th>Satuan</th>
                                     <th>#</th>
                                 </tr>
                             </tfoot>
@@ -95,6 +101,11 @@
 <script src="{{asset('admin/plugins/datatables/jquery.dataTables.js')}}"></script>
 <script src="{{asset('admin/plugins/datatables-bs4/js/dataTables.bootstrap4.js')}}"></script>
 <script>
-$('table').DataTable();
+$('table').DataTable({
+    "columnDefs": [
+        { "orderable": false, "targets": [0,4] },
+        { "searchable": false, "targets" : [0,4]}
+    ]
+});
 </script>
 @endsection

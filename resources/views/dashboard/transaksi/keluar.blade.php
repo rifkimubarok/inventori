@@ -1,7 +1,7 @@
 @extends('layouts/master')
 
 @section('title')
-    Transaksi Barang Keluar
+    Transaksi Peminjaman
 @endsection
 
 @section('css')
@@ -13,7 +13,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
         <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Transaksi Barang Keluar</h1>
+            <h1 class="m-0 text-dark">Transaksi Peminjaman</h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -34,7 +34,7 @@
         <div class="col-lg-12">
             <div class="card">
             <div class="card-header">
-                <h5 class="m-0">Daftar Transaksi</h5>
+                <h5 class="m-0">Daftar Peminjaman</h5>
             </div>
             <div class="card-body">              
                 <div class="row">
@@ -48,7 +48,7 @@
                                     <th width="1%">No</th>
                                     <th>Tgl Transaksi</th>
                                     <th>Jumlah Barang</th>
-                                    <th>Total Harga</th>
+                                    <th>Status</th>
                                     <th>#</th>
                                 </tr>
                             </thead>
@@ -61,20 +61,11 @@
                                     <td>{{$nomor+=1}}</td>
                                     <td>{{$item->tgl_transaksi}}</td>
                                     <td>{{$item->total_barang}}</td>
-                                    <td>{{number_format($item->total_harga,0)}}</td>
-                                    <td><a href="/transaksi/keluar/detail/{{$item->id}}" class="btn-detail"><button class="btn btn-primary btn-xs" title="Detail Transaksi"><i class="fas fa-list"></i></button></a></td>
+                                    <td></td>
+                                    <td><a href="/transaksi/keluar/detail/{{$item->id}}" data-value="{{$item->id}}" class="btn-detail"><button class="btn btn-primary btn-xs" title="Detail Transaksi"><i class="fas fa-list"></i></button></a></td>
                                     </tr>
                                 @endforeach
                             </tbody>
-                            <tfoot>
-                                <tr>
-                                    <th width="1%">No</th>
-                                    <th>Nama Barang</th>
-                                    <th>Jumlah</th>
-                                    <th>Harga</th>
-                                    <th>#</th>
-                                </tr>
-                            </tfoot>
                             </table>
                             <div>
                                 {{$barang_keluar->links()}}
@@ -120,14 +111,28 @@
 <script src="{{asset('admin/plugins/datatables/jquery.dataTables.js')}}"></script>
 <script src="{{asset('admin/plugins/datatables-bs4/js/dataTables.bootstrap4.js')}}"></script>
 <script>
-// $('table').DataTable();
+$(document).ready(function(){
+    $(document).on("click",".btn-return-detail",function(){
+        return_detail_barang($(this).attr("data-value"),$(this));
+    })
+})
+$('table').DataTable({
+    "columnDefs": [
+        { "orderable": false, "targets": [0,3] },
+        { "searchable": false, "targets" : [0,3]}
+    ]
+});
+var transaksi_id = 0;
 $('table').on("click",".btn-detail",function(e) {
-    e.preventDefault;
     var url = $(this).attr("href");
+    transaksi_id = $(this).attr("data-value");
     $.ajax({
         url:url,
         dataType:"html",
         type:"get",
+        data:{
+            mode:"preview"
+        },
         success:function(result){
             $('.modal-body').html(result);
             $('#detail_transaksi').modal("show");
@@ -135,5 +140,22 @@ $('table').on("click",".btn-detail",function(e) {
     })
     return false;
 })
+function return_detail_barang(id,elmt){
+    $.ajax({
+        url:"/transaksi/keluar/return/",
+        type:"post",
+        dataType:"json",
+        data:{
+            "_token": "{{ csrf_token() }}",
+            "transaksi_id":transaksi_id,
+            id:id
+        },
+        success:function(result){
+            alert(result.message);
+            elmt.attr("disabled",true);
+            elmt.text("dikembalikan");
+        }
+    })
+}
 </script>
 @endsection
